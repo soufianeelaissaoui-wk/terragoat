@@ -53,6 +53,14 @@ jobs:
         with:
           # Path to SARIF file relative to the root of the repository
           sarif_file: tfsec.sarif
+
+      - name: Squash And Merge After Approval of PR
+        run: |
+          curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.PAT }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/orgs/Workiva/secret-scanning/alerts
       - name: GitHub Advanced Security API to CSV
         uses: advanced-security/ghas-to-csv@v3
         env:
